@@ -18,8 +18,22 @@ function pressDigit(digit) {
   showEquation();
 }
 
+function pressOperator(newOperator) {
+  if (operand[0] === "") {
+    return;
+  }
+
+  operator = newOperator;
+  showEquation();
+  operandIndex = 1;
+}
+
 clear();
 
 document.querySelectorAll(".digit").forEach((digitButton) => {
   digitButton.addEventListener("click", () => pressDigit(digitButton.textContent, operandIndex));
+});
+
+document.querySelectorAll(".operator").forEach((operatorButton) => {
+  operatorButton.addEventListener("click", () => pressOperator(operatorButton.textContent));
 });
