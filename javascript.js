@@ -1,11 +1,8 @@
 let operand = Array(2), operator, result;
 let operandIndex;
 
-function showEquation() {
+function showDisplay() {
   document.querySelector(".equation").textContent = `${operand[0]} ${operator} ${operand[1]}`;
-}
-
-function showResult() {
   document.querySelector(".result").textContent = result;
 }
 
@@ -14,14 +11,18 @@ function clear() {
   operand[1] = "";
   operandIndex = 0;
   operator = "";
+  result = "";
 
-  showEquation();
+  showDisplay();
 }
 
-// "index" indicates whether the current digit button is pressed for 1st or 2nd operand
 function pressDigit(digit) {
+  if (result !== "") {
+    return;
+  }
+
   operand[operandIndex] += digit;
-  showEquation();
+  showDisplay();
 }
 
 function pressOperator(newOperator) {
@@ -29,9 +30,17 @@ function pressOperator(newOperator) {
     return;
   }
 
-  operator = newOperator;
-  showEquation();
-  operandIndex = 1;
+  if (result === "") {
+    operator = newOperator;
+    operandIndex = 1;
+    showDisplay();
+  } else {
+    operand[0] = result;
+    operand[1] = "";
+    operator = newOperator;
+    result = "";
+    showDisplay();
+  }
 }
 
 function computeResult() {
@@ -51,7 +60,7 @@ function computeResult() {
     result = number1 / number2;
   }
 
-  showResult();
+  showDisplay();
 }
 
 clear();
