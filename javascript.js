@@ -20,6 +20,9 @@ function pressDigit(digit) {
   if (result !== "") {
     return;
   }
+  if (document.querySelector(".result").textContent === "Don't divide by 0 lol") {
+    return;
+  }
 
   operand[operandIndex] += digit;
   showDisplay();
@@ -27,6 +30,9 @@ function pressDigit(digit) {
 
 function pressOperator(newOperator) {
   if (operand[0] === "") {
+    return;
+  }
+  if (document.querySelector(".result").textContent === "Don't divide by 0 lol") {
     return;
   }
 
@@ -47,6 +53,9 @@ function computeResult() {
   if (operand[0] === "" || operand[1] === "" || operator === "") {
     return;
   }
+  if (document.querySelector(".result").textContent === "Don't divide by 0 lol") {
+    return;
+  }
 
   const number1 = Number(operand[0]);
   const number2 = Number(operand[1]);
@@ -57,6 +66,11 @@ function computeResult() {
   } else if (operator === "x") {
     result = number1 * number2;
   } else {
+    if (number2 === 0) {
+      document.querySelector(".result").textContent = "Don't divide by 0 lol";
+      return;
+    }
+
     result = number1 / number2;
   }
 
