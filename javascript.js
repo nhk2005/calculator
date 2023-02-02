@@ -1,15 +1,17 @@
 let operand = Array(2), operator;
 let operandIndex;
 
+function showEquation() {
+  document.querySelector(".equation").textContent = `${operand[0]} ${operator} ${operand[1]}`;
+}
+
 function clear() {
   operand[0] = "";
   operand[1] = "";
   operandIndex = 0;
   operator = "";
-}
 
-function showEquation() {
-  document.querySelector(".equation").textContent = `${operand[0]} ${operator} ${operand[1]}`;
+  showEquation();
 }
 
 // "index" indicates whether the current digit button is pressed for 1st or 2nd operand
@@ -30,8 +32,10 @@ function pressOperator(newOperator) {
 
 clear();
 
+document.querySelector(".clear").addEventListener("click", () => clear());
+
 document.querySelectorAll(".digit").forEach((digitButton) => {
-  digitButton.addEventListener("click", () => pressDigit(digitButton.textContent, operandIndex));
+  digitButton.addEventListener("click", () => pressDigit(digitButton.textContent));
 });
 
 document.querySelectorAll(".operator").forEach((operatorButton) => {
